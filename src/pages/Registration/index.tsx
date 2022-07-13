@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Grid } from '@material-ui/core';
-import LoginForm from '../../components/LoginForm/index';
+import RegistrationForm from '../../components/RegistrationForm';
 
 const Login: FC = () => (
   <Grid
@@ -9,7 +9,7 @@ const Login: FC = () => (
     justifyContent="center"
     alignItems="center"
   >
-    <LoginForm />
+    <RegistrationForm />
   </Grid>
 );
 

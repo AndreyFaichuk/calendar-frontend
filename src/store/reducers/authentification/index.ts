@@ -14,4 +14,4 @@ export default function authentificationReducer(state = initialState, action: Au
         default: return state
     }
 
-};
+}
