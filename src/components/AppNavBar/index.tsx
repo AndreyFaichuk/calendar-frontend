@@ -2,8 +2,9 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import {AppBar, Toolbar, Typography, Button, IconButton} from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+
 import { RoutesNames } from '../../router/routesNames';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 
@@ -25,8 +26,8 @@ const useStylesAppNavBar = makeStyles((theme) => ({
 const AppNavBar:FC = () => {
   const classes = useStylesAppNavBar();
   const history = useNavigate();
-
-  const { isAuth } = useTypedSelector(state => state.authentificationReducer)
+  const { isAuth } = useTypedSelector(state => state.authentification)
+  const { username } = useTypedSelector(state => state.user)
 
   return (
     <div className={classes.root}>
@@ -50,7 +51,7 @@ const AppNavBar:FC = () => {
                 className={classes.authName}
                 variant="h5"
               >
-                Andrey F.</Typography>
+              {username}</Typography>
               <Button 
                 variant="contained"
                 onClick={() => console.log('exit')}

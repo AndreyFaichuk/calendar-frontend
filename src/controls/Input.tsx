@@ -8,10 +8,12 @@ interface Props{
   required?: boolean;
   name: string;
   error?: boolean;
+  width?: string;
 }
 
-const Input: FC<Props> = ({ label, onChange, helperText, required, name, error }: Props) => (
+const Input: FC<Props> = ({ label, onChange, helperText, required, name, error, width }: Props) => (
     <TextField
+      style={{width: width || '100%'}}
       label={label}
       helperText={helperText}
       error={error}

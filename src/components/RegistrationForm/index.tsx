@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import {
-  Paper, Link, Button, Box
+  Paper, Link, Button, Box, Typography, Grid
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +24,15 @@ const useStylesLoginForm = makeStyles((theme) => ({
     display: 'flex',
     margin: '25px',
     justifyContent: 'space-evenly'
+  },
+  titleWrapper: {
+    width: '44%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  input: {
+    marginBottom: '15px'
   }
 }));
 
@@ -55,23 +64,29 @@ const RegistrationForm: FC = () => {
 
   return (
     <Paper className={classes.root}>
+      <Grid container direction={"column"} spacing={3}>
+        <Grid item>
         <Input
           label="Name"
           name="name"
           onChange={handleInputChange}
         />
-
+        </Grid>
+        <Grid item>
         <Input
           label="Password"
           name="password"
           onChange={handleInputChange}
         />
-
+        </Grid>
+        <Grid item>
         <Input
           label="Email"
           name="email"
           onChange={handleInputChange}
         />
+        </Grid>
+      </Grid>
         <Box className={classes.buttonWrapper}>
             <Button 
                 className={classes.button}
@@ -82,13 +97,16 @@ const RegistrationForm: FC = () => {
             >
                 Registration
             </Button>
-            <Link
-                component="button"
-                variant="body2"
-                onClick={() => navigate(RoutesNames.LOGIN)}
-            >
-                Already have an account? Login
-            </Link>
+            <Box className={classes.titleWrapper}>
+              <Typography>Already have an account?</Typography>
+              <Link
+                  component="button"
+                  variant="body2"
+                  onClick={() => navigate(RoutesNames.LOGIN)}
+              >
+                Login
+              </Link>
+            </Box>
         </Box>
     </Paper>
   );

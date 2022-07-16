@@ -5,7 +5,7 @@ import { authRoutes, publicRoutes } from '../../router';
 import { RoutesNames } from '../../router/routesNames';
 
 const AppRouter: FC = () => {
-    const { isAuth } = useTypedSelector(state => state.authentificationReducer);
+    const { isAuth } = useTypedSelector(state => state.authentification);
 
     return (
         isAuth ? 
