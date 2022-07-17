@@ -28,7 +28,7 @@ export function* loginSaga(action: AnyAction) {
         }
 
     } catch (error) {
-        yield
+        toast.error('Authentication error!')
 
     }
     yield
