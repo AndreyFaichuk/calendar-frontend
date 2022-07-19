@@ -40,11 +40,18 @@ export function* registrationSaga(action: AnyAction) {
     try {
         yield put(AuthActionCreators.setIsLoading(true))
 
-        const newUser: UserRegistraion = yield call(registrationUser, action.payload)
-        console.log(newUser)
+        const { data }: UserRegistraion = yield call(registrationUser, action.payload)
+
+        if(data){
+            yield put(AuthActionCreators.setIsAuth(true))
+            yield put(UserActionCreators.setUser(data))
+            toast.success(data.message)
+        }
+
+        yield put(AuthActionCreators.setIsLoading(false))
         
     } catch (error) {
-        yield
+        toast.error('User already registered!')
     }
 }
 

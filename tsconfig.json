@@ -1,6 +1,7 @@
 {
   "ignoreBuildErrors": true,
   "compilerOptions": {
+    "useUnknownInCatchVariables": false,
     "target": "es5",
     "lib": [
       "dom",

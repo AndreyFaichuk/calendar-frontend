@@ -66,12 +66,14 @@ const LoginForm: FC = () => {
         <Paper className={classes.root}>
         <Box component="form" className={classes.form}>
           <Input
+            value={inputValue.username}
             width='35%'
             label="Name"
             name="username"
             onChange={handleInputChange}
           />
           <Input
+            value={inputValue.password}
             width='35%'
             label="Password"
             name="password"

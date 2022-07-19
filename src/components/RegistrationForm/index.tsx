@@ -57,6 +57,7 @@ const RegistrationForm: FC = () => {
 
   const handleSubmit = () => {
     setRegistrationUser(inputValue)
+    setInputValue({ username: '', password: '', email: '' })
   };
 
   return (
@@ -64,6 +65,7 @@ const RegistrationForm: FC = () => {
       <Grid container direction={"column"} spacing={3}>
         <Grid item>
         <Input
+          value={inputValue.username}
           label="Name"
           name="username"
           onChange={handleInputChange}
@@ -71,6 +73,7 @@ const RegistrationForm: FC = () => {
         </Grid>
         <Grid item>
         <Input
+          value={inputValue.password}
           label="Password"
           name="password"
           type="password"
@@ -79,6 +82,7 @@ const RegistrationForm: FC = () => {
         </Grid>
         <Grid item>
         <Input
+          value={inputValue.email}
           label="Email"
           name="email"
           onChange={handleInputChange}
