@@ -2,7 +2,8 @@ import { toast } from 'react-toastify';
 import { AnyAction } from 'redux';
 import { call, delay, put, takeLatest } from 'redux-saga/effects';
 
-import { User } from '../../models/User';
+import { registrationUser } from '../../api/auth';
+import { UserLogin, UserRegistraion } from '../../models/User';
 import { loginService } from '../../services/loginService';
 import { AuthActionCreators } from '../../store/reducers/authentification/action-creators';
 import { AuthActions } from '../../store/reducers/authentification/actions';
@@ -15,7 +16,7 @@ export function* loginSaga(action: AnyAction) {
         yield put(AuthActionCreators.setIsLoading(true))
 
         yield delay(2000)
-        const mockUser: User = yield call(loginService, password, username)
+        const mockUser: UserRegistraion = yield call(loginService, password, username)
 
         if(mockUser){
             yield localStorage.setItem('isAuth', 'true')
@@ -35,14 +36,27 @@ export function* loginSaga(action: AnyAction) {
     }
 }
 
+export function* registrationSaga(action: AnyAction) {
+    try {
+        yield put(AuthActionCreators.setIsLoading(true))
+
+        const newUser: UserRegistraion = yield call(registrationUser, action.payload)
+        console.log(newUser)
+        
+    } catch (error) {
+        yield
+    }
+}
+
 export function* logoutSaga() {
    yield localStorage.removeItem('isAuth')
    yield localStorage.removeItem('username')
-   yield put(UserActionCreators.setUser({} as User))
+   yield put(UserActionCreators.setUser({} as UserRegistraion))
    yield put(AuthActionCreators.setIsAuth(false))
 }
 
 export default function* authSaga() {
     yield takeLatest(AuthActions.SET_LOGIN_USER, loginSaga)
+    yield takeLatest(AuthActions.SET_REGISTRATION_USER, registrationSaga)
     yield takeLatest(AuthActions.LOGOUT_USER, logoutSaga)
 }

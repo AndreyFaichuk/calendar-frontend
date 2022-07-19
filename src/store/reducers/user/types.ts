@@ -1,4 +1,4 @@
-import { User } from '../../../models/User';
+import { UserRegistraion } from '../../../models/User';
 import { UserActions } from './actions';
 
 export interface UserState{
@@ -8,7 +8,7 @@ export interface UserState{
 
 export interface SetUserInfoAction{
     type: UserActions.SET_USER_INFO;
-    payload: User;
+    payload: UserRegistraion;
 };
 
 export type UserAction = 

@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../../controls/Input';
 import { RoutesNames } from '../../router/routesNames';
 import validation from '../../helpers/loginValidation';
+import { useActions } from '../../hooks/useActions';
+import { UserRegistraion } from '../../models/User';
 
 const useStylesLoginForm = makeStyles((theme) => ({
   root: {
@@ -36,18 +38,13 @@ const useStylesLoginForm = makeStyles((theme) => ({
   }
 }));
 
-interface InputValue{
-  name: string;
-  password: string;
-  email: string;
-}
-
 const RegistrationForm: FC = () => {
-  const [inputValue, setInputValue] = useState<InputValue>({ name: '', password: '', email: '' });
+  const [inputValue, setInputValue] = useState<UserRegistraion>({ username: '', password: '', email: '' });
   const navigate = useNavigate();
   const classes = useStylesLoginForm();
+  const { setRegistrationUser } = useActions();
 
-  const isEmptyFields = !!(!inputValue.name || !inputValue.password || !inputValue.email);
+  const isEmptyFields = !!(!inputValue.username || !inputValue.password || !inputValue.email);
 
   const handleInputChange = (e: React.FormEvent<EventTarget>): void => {
     const { name, value } = e.target as HTMLInputElement;
@@ -59,7 +56,7 @@ const RegistrationForm: FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log(inputValue)
+    setRegistrationUser(inputValue)
   };
 
   return (
@@ -68,7 +65,7 @@ const RegistrationForm: FC = () => {
         <Grid item>
         <Input
           label="Name"
-          name="name"
+          name="username"
           onChange={handleInputChange}
         />
         </Grid>
@@ -76,6 +73,7 @@ const RegistrationForm: FC = () => {
         <Input
           label="Password"
           name="password"
+          type="password"
           onChange={handleInputChange}
         />
         </Grid>

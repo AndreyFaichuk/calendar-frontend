@@ -1,4 +1,3 @@
-import { User } from '../../../models/User';
 import { AuthActions } from './actions';
 import { AuthAction, AuthentificationState } from './types';
 

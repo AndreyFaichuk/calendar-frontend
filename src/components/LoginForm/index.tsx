@@ -3,7 +3,6 @@ import {
   Paper, Box, Button, Typography, Link, CircularProgress
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
 
 import Input from '../../controls/Input';
 import validation from '../../helpers/loginValidation';
@@ -12,6 +11,7 @@ import { RoutesNames } from '../../router/routesNames';
 import { AuthActionCreators } from '../../store/reducers/authentification/action-creators';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useActions';
+import { UserLogin } from '../../models/User';
 
 const useStylesLoginForm = makeStyles((theme) => ({
   root: {
@@ -34,13 +34,8 @@ const useStylesLoginForm = makeStyles((theme) => ({
   }
 }));
 
-interface InputValue{
-  username: string;
-  password: string;
-}
-
 const LoginForm: FC = () => {
-  const [inputValue, setInputValue] = useState<InputValue>({ username: '', password: '' });
+  const [inputValue, setInputValue] = useState<UserLogin>({ username: '', password: '' });
   const { isLoading } = useTypedSelector(state => state.authentification);
   const { setLoginUser } = useActions();
   const navigate = useNavigate();
@@ -59,7 +54,7 @@ const LoginForm: FC = () => {
 
   const handleSubmit = () => {
     setLoginUser(inputValue)
-    setInputValue({ username: '', password: '' })
+    setInputValue({} as UserLogin)
   };
 
   return (

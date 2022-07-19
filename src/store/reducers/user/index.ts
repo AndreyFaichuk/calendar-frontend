@@ -1,4 +1,3 @@
-import { User } from '../../../models/User';
 import { UserActions } from './actions';
 import { UserAction, UserState } from './types';
 

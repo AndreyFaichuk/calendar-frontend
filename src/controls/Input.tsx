@@ -9,10 +9,12 @@ interface Props{
   name: string;
   error?: boolean;
   width?: string;
+  type?: string;
 }
 
-const Input: FC<Props> = ({ label, onChange, helperText, required, name, error, width }: Props) => (
+const Input: FC<Props> = ({ label, onChange, helperText, required, name, error, width, type }: Props) => (
     <TextField
+      type={type ? type : ''}
       style={{width: width || '100%'}}
       label={label}
       helperText={helperText}
