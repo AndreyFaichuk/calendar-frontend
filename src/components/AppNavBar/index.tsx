@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import { RoutesNames } from '../../router/routesNames';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useActions } from '../../hooks/useActions';
 
 const useStylesAppNavBar = makeStyles((theme) => ({
   root: {
@@ -28,6 +29,7 @@ const AppNavBar:FC = () => {
   const history = useNavigate();
   const { isAuth } = useTypedSelector(state => state.authentification)
   const { username } = useTypedSelector(state => state.user)
+  const { logoutUser } = useActions();
 
   return (
     <div className={classes.root}>
@@ -54,7 +56,7 @@ const AppNavBar:FC = () => {
               {username}</Typography>
               <Button 
                 variant="contained"
-                onClick={() => console.log('exit')}
+                onClick={() => logoutUser()}
               >
                 Sign Out</Button>
             </>

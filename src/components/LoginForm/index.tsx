@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { RoutesNames } from '../../router/routesNames';
 import { AuthActionCreators } from '../../store/reducers/authentification/action-creators';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useActions } from '../../hooks/useActions';
 
 const useStylesLoginForm = makeStyles((theme) => ({
   root: {
@@ -40,10 +41,10 @@ interface InputValue{
 
 const LoginForm: FC = () => {
   const [inputValue, setInputValue] = useState<InputValue>({ username: '', password: '' });
-  const { isLoading } = useTypedSelector(state => state.authentification)
+  const { isLoading } = useTypedSelector(state => state.authentification);
+  const { setLoginUser } = useActions();
   const navigate = useNavigate();
   const classes = useStylesLoginForm();
-  const dispatch = useDispatch();
 
   const isEmptyFields = !!(!inputValue.username || !inputValue.password);
 
@@ -57,7 +58,7 @@ const LoginForm: FC = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(AuthActionCreators.setLoginUser(inputValue))
+    setLoginUser(inputValue)
     setInputValue({ username: '', password: '' })
   };
 

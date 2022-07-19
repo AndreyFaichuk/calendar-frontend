@@ -17,24 +17,32 @@ export function* loginSaga(action: AnyAction) {
         yield delay(2000)
         const mockUser: User = yield call(loginService, password, username)
 
-        yield put(AuthActionCreators.setIsLoading(false))
-
         if(mockUser){
+            yield localStorage.setItem('isAuth', 'true')
+            yield localStorage.setItem('username', mockUser.username)
             yield put(AuthActionCreators.setIsAuth(true))
-            toast.success('Successfully logged in!')
             yield put(UserActionCreators.setUser(mockUser))
+            toast.success('Successfully logged in!')
         } else {
             toast.error('User was not found!')
         }
+
+        yield put(AuthActionCreators.setIsLoading(false))
 
     } catch (error) {
         toast.error('Authentication error!')
 
     }
-    yield
+}
 
+export function* logoutSaga() {
+   yield localStorage.removeItem('isAuth')
+   yield localStorage.removeItem('username')
+   yield put(UserActionCreators.setUser({} as User))
+   yield put(AuthActionCreators.setIsAuth(false))
 }
 
 export default function* authSaga() {
     yield takeLatest(AuthActions.SET_LOGIN_USER, loginSaga)
+    yield takeLatest(AuthActions.LOGOUT_USER, logoutSaga)
 }

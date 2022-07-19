@@ -18,5 +18,9 @@ export interface SetLoginUser{
     payload: object
 };
 
+export interface LogoutUser{
+    type: AuthActions.LOGOUT_USER;
+};
+
 export type AuthAction = 
-SetAuthAction  | SetIsLoadingAction  | SetLoginUser
+SetAuthAction  | SetIsLoadingAction  | SetLoginUser | LogoutUser
