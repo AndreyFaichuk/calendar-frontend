@@ -22,3 +22,12 @@ export const registrationUser = async (payload: UserRegistraion) => {
       data: payload
   })
 };
+
+export const logoutUser = async () => {
+
+  return await axios({
+      method: 'get',
+      withCredentials: true,
+      url: 'http://localhost:5000/users/logout',
+  })
+};

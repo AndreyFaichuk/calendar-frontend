@@ -13,7 +13,7 @@ export interface UserRegistraion {
 
 export interface UserData {
     email: string;
-    message: string;
+    message?: string;
     userId: string;
     username: string
     data?: any;
