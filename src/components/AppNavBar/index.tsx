@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { RoutesNames } from '../../router/routesNames';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useActions';
+import { AuthActionCreators } from '../../store/reducers/authentification/action-creators';
 
 const useStylesAppNavBar = makeStyles((theme) => ({
   root: {
@@ -29,7 +30,7 @@ const AppNavBar:FC = () => {
   const history = useNavigate();
   const { isAuth } = useTypedSelector(state => state.authentification)
   const { username } = useTypedSelector(state => state.user)
-  const { logoutUser } = useActions();
+  const { logoutUser } = useActions(AuthActionCreators);
 
   return (
     <div className={classes.root}>

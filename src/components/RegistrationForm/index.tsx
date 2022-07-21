@@ -10,6 +10,7 @@ import { RoutesNames } from '../../router/routesNames';
 import validation from '../../helpers/loginValidation';
 import { useActions } from '../../hooks/useActions';
 import { UserRegistraion } from '../../models/User';
+import { AuthActionCreators } from '../../store/reducers/authentification/action-creators';
 
 const useStylesLoginForm = makeStyles((theme) => ({
   root: {
@@ -42,7 +43,7 @@ const RegistrationForm: FC = () => {
   const [inputValue, setInputValue] = useState<UserRegistraion>({ username: '', password: '', email: '' });
   const navigate = useNavigate();
   const classes = useStylesLoginForm();
-  const { setRegistrationUser } = useActions();
+  const { setRegistrationUser } = useActions(AuthActionCreators);
 
   const isEmptyFields = !!(!inputValue.username || !inputValue.password || !inputValue.email);
 

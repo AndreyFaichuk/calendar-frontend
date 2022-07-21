@@ -11,6 +11,7 @@ import { RoutesNames } from '../../router/routesNames';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useActions';
 import { UserLogin } from '../../models/User';
+import { AuthActionCreators } from '../../store/reducers/authentification/action-creators';
 
 const useStylesLoginForm = makeStyles((theme) => ({
   root: {
@@ -36,7 +37,7 @@ const useStylesLoginForm = makeStyles((theme) => ({
 const LoginForm: FC = () => {
   const [inputValue, setInputValue] = useState<UserLogin>({ username: '', password: '' });
   const { isLoading } = useTypedSelector(state => state.authentification);
-  const { setLoginUser } = useActions();
+  const { setLoginUser } = useActions(AuthActionCreators);
   const navigate = useNavigate();
   const classes = useStylesLoginForm();
 
