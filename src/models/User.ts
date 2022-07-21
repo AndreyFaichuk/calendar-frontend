@@ -1,6 +1,7 @@
 export interface UserLogin {
     username: string;
     password: string;
+    data?: UserData
 }
 
 export interface UserRegistraion {
@@ -15,4 +16,5 @@ export interface UserData {
     message: string;
     userId: string;
     username: string
+    data?: any;
 }

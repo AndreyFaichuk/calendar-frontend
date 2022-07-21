@@ -8,7 +8,6 @@ import Input from '../../controls/Input';
 import validation from '../../helpers/loginValidation';
 import { useNavigate } from 'react-router-dom';
 import { RoutesNames } from '../../router/routesNames';
-import { AuthActionCreators } from '../../store/reducers/authentification/action-creators';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useActions';
 import { UserLogin } from '../../models/User';
@@ -54,14 +53,14 @@ const LoginForm: FC = () => {
 
   const handleSubmit = () => {
     setLoginUser(inputValue)
-    setInputValue({} as UserLogin)
+    setInputValue({ username: '', password: '' })
   };
 
   return (
     <>
     {
       isLoading ? 
-      <CircularProgress style={{margin: '15% 0 0 0'}}/>
+      <CircularProgress style={{ margin: '15% 0 0 0' }}/>
         :
         <Paper className={classes.root}>
         <Box component="form" className={classes.form}>
@@ -73,15 +72,16 @@ const LoginForm: FC = () => {
             onChange={handleInputChange}
           />
           <Input
+            type='password'
             value={inputValue.password}
             width='35%'
-            label="Password"
-            name="password"
+            label='Password'
+            name='password'
             onChange={handleInputChange}
           />
           <Button 
-            variant="contained" 
-            color="primary"
+            variant='contained'
+            color='primary'
             onClick={handleSubmit}
             disabled={isEmptyFields}
             >

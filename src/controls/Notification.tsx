@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Notification: FC = () => {
   return (
       <ToastContainer 
-        position="top-center"
+        style={{ width: '350px' }}
+        position='top-center'
         autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}

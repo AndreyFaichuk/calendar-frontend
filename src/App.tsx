@@ -3,14 +3,14 @@ import AppRouter from './components/AppRouter';
 import AppNavBar from './components/AppNavBar';
 import Notification from './controls/Notification';
 import { useActions } from './hooks/useActions';
-import { UserRegistraion } from './models/User';
+import { UserData } from './models/User';
 
 const App: FC = () => {
   const { setUser, setIsAuth } = useActions();
 
   useEffect(() => {
     if(localStorage.getItem('isAuth')){
-      setUser({ username: localStorage.getItem('username' || '') } as UserRegistraion)
+      setUser({ username: localStorage.getItem('username' || '') } as UserData)
       setIsAuth(true)
     }
   }, []);

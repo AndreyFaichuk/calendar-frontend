@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField, TextFieldProps } from '@material-ui/core';
 
 interface Props{
   label: string;
@@ -10,14 +10,17 @@ interface Props{
   error?: boolean;
   width?: string;
   type?: string;
-  value: string | number | undefined
+  value: string | number | undefined;
 }
 
-const Input: FC<Props> = ({ label, onChange, helperText, required, name, error, width, type, value }: Props) => (
+const Input: FC<Props> = ({
+  label, onChange, helperText, required, name, 
+  error, width = '100%', type = 'standard', value
+}: Props) => (
     <TextField
       value={value}
-      type={type ? type : ''}
-      style={{width: width || '100%'}}
+      type={type}
+      style={{width: width}}
       label={label}
       helperText={helperText}
       error={error}

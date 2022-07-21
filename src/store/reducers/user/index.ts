@@ -3,7 +3,8 @@ import { UserAction, UserState } from './types';
 
 const initialState: UserState = {
     username: '',
-    email: ''
+    email: '',
+    userId: ''
 };
 
 export default function user(state = initialState, action: UserAction): UserState{
@@ -12,7 +13,8 @@ export default function user(state = initialState, action: UserAction): UserStat
             return {
                 ...state,
                 username: action.payload.username,
-                email: action.payload.email
+                email: action.payload.email,
+                userId: action.payload.userId,
             }
 
         default: return state
