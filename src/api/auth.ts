@@ -23,6 +23,15 @@ export const registrationUser = async (payload: UserRegistraion) => {
   })
 };
 
+export const verifySession = async () => {
+
+  return await axios({
+      method: 'get',
+      withCredentials: true,
+      url: 'http://localhost:5000/users/protected',
+  })
+};
+
 export const logoutUser = async () => {
 
   return await axios({

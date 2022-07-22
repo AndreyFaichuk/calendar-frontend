@@ -24,9 +24,13 @@ export interface SetRegistrationUser{
     payload: UserRegistraion
 };
 
+export interface VerifySession{
+    type: AuthActions.VERIFY_SESSION;
+};
+
 export interface LogoutUser{
     type: AuthActions.LOGOUT_USER;
 };
 
 export type AuthAction = 
-SetAuthAction  | SetIsLoadingAction  | SetLoginUser | LogoutUser
+SetAuthAction  | SetIsLoadingAction  | SetLoginUser | LogoutUser | VerifySession

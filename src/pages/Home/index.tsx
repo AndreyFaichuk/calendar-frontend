@@ -1,9 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
+import Layout from '../../components/Layout';
+import Profile from '../Profile'
 
 const Home: FC = () => {
 
 	return (
-		<h1>Hello</h1>
+		<h1>home</h1>
 	)
 }
 
