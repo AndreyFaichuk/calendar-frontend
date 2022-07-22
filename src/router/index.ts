@@ -2,7 +2,7 @@ import Route from './routeType';
 import { RoutesNames } from './routesNames';
 import Login from '../pages/Login';
 import Registration from '../pages/Registration';
-import Event from '../pages/Event';
+import Home from '../pages/Home';
 
 export const publicRoutes: Route[] = [
     { path: RoutesNames.LOGIN, element: Login },
@@ -10,5 +10,5 @@ export const publicRoutes: Route[] = [
 ];
 
 export const authRoutes: Route[] = [
-    { path: RoutesNames.EVENT, element: Event }
+    { path: RoutesNames.HOME, element: Home }
 ];

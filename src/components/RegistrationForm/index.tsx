@@ -61,58 +61,58 @@ const RegistrationForm: FC = () => {
     setInputValue({ username: '', password: '', email: '' })
   };
 
-  return (
-    <Paper className={classes.root}>
-      <Grid container direction={"column"} spacing={3}>
-        <Grid item>
-        <Input
-          value={inputValue.username}
-          label="Name"
-          name="username"
-          onChange={handleInputChange}
-        />
-        </Grid>
-        <Grid item>
-        <Input
-          value={inputValue.password}
-          label="Password"
-          name="password"
-          type="password"
-          onChange={handleInputChange}
-        />
-        </Grid>
-        <Grid item>
-        <Input
-          value={inputValue.email}
-          label="Email"
-          name="email"
-          onChange={handleInputChange}
-        />
-        </Grid>
+return (
+  <Paper className={classes.root}>
+    <Grid container direction={"column"} spacing={3}>
+      <Grid item>
+      <Input
+        value={inputValue.username}
+        label="Name"
+        name="username"
+        onChange={handleInputChange}
+      />
       </Grid>
-        <Box className={classes.buttonWrapper}>
-            <Button 
-                className={classes.button}
-                variant="contained" 
-                color="primary"
-                onClick={handleSubmit}
-                disabled={isEmptyFields}
+      <Grid item>
+      <Input
+        value={inputValue.password}
+        label="Password"
+        name="password"
+        type="password"
+        onChange={handleInputChange}
+      />
+      </Grid>
+      <Grid item>
+      <Input
+        value={inputValue.email}
+        label="Email"
+        name="email"
+        onChange={handleInputChange}
+      />
+      </Grid>
+    </Grid>
+      <Box className={classes.buttonWrapper}>
+          <Button 
+              className={classes.button}
+              variant="contained" 
+              color="primary"
+              onClick={handleSubmit}
+              disabled={isEmptyFields}
+          >
+              Registration
+          </Button>
+          <Box className={classes.titleWrapper}>
+            <Typography>Already have an account?</Typography>
+            <Link
+                component="button"
+                variant="body2"
+                onClick={() => navigate(RoutesNames.LOGIN)}
             >
-                Registration
-            </Button>
-            <Box className={classes.titleWrapper}>
-              <Typography>Already have an account?</Typography>
-              <Link
-                  component="button"
-                  variant="body2"
-                  onClick={() => navigate(RoutesNames.LOGIN)}
-              >
-                Login
-              </Link>
-            </Box>
-        </Box>
-    </Paper>
-  );
+              Login
+            </Link>
+          </Box>
+      </Box>
+  </Paper>
+);
 };
 
 export default RegistrationForm;

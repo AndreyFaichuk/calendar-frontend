@@ -36,7 +36,6 @@ const useStylesLoginForm = makeStyles((theme) => ({
 
 const LoginForm: FC = () => {
   const [inputValue, setInputValue] = useState<UserLogin>({ username: '', password: '' });
-  const { isLoading } = useTypedSelector(state => state.authentification);
   const { setLoginUser } = useActions(AuthActionCreators);
   const navigate = useNavigate();
   const classes = useStylesLoginForm();
@@ -57,51 +56,44 @@ const LoginForm: FC = () => {
     setInputValue({ username: '', password: '' })
   };
 
-  return (
-    <>
-    {
-      isLoading ? 
-      <CircularProgress style={{ margin: '15% 0 0 0' }}/>
-        :
-        <Paper className={classes.root}>
-        <Box component="form" className={classes.form}>
-          <Input
-            value={inputValue.username}
-            width='35%'
-            label="Name"
-            name="username"
-            onChange={handleInputChange}
-          />
-          <Input
-            type='password'
-            value={inputValue.password}
-            width='35%'
-            label='Password'
-            name='password'
-            onChange={handleInputChange}
-          />
-          <Button 
-            variant='contained'
-            color='primary'
-            onClick={handleSubmit}
-            disabled={isEmptyFields}
-            >
-              Login
-          </Button>
-      </Box>
-      <Box className={classes.titleWrapper}>
-        <Typography className={classes.title}>Do not have an account?</Typography>
-          <Link
-              component="button"
-              variant="body2"
-              onClick={() => navigate(RoutesNames.REGISTRATION)}
-          >
-            Registration
-          </Link>
-        </Box>
-    </Paper>
-    }
-    </>
+return (
+    <Paper className={classes.root}>
+    <Box component="form" className={classes.form}>
+      <Input
+        value={inputValue.username}
+        width='35%'
+        label="Name"
+        name="username"
+        onChange={handleInputChange}
+      />
+      <Input
+        type='password'
+        value={inputValue.password}
+        width='35%'
+        label='Password'
+        name='password'
+        onChange={handleInputChange}
+      />
+      <Button 
+        variant='contained'
+        color='primary'
+        onClick={handleSubmit}
+        disabled={isEmptyFields}
+        >
+          Login
+      </Button>
+  </Box>
+  <Box className={classes.titleWrapper}>
+    <Typography className={classes.title}>Do not have an account?</Typography>
+      <Link
+          component="button"
+          variant="body2"
+          onClick={() => navigate(RoutesNames.REGISTRATION)}
+      >
+        Registration
+      </Link>
+    </Box>
+  </Paper>
   );
 };
 

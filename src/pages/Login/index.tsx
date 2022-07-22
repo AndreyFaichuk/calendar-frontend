@@ -1,16 +1,25 @@
 import React, { FC } from 'react';
-import { Grid } from '@material-ui/core';
+import { CircularProgress, Grid } from '@material-ui/core';
 import LoginForm from '../../components/LoginForm/index';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
-const Login: FC = () => (
+const Login: FC = () => {
+  const { isLoading } = useTypedSelector(state => state.authentification);
+
+return(
   <Grid
-   container
+    container
     direction="column"
     justifyContent="center"
     alignItems="center"
   >
+  {
+    isLoading ? 
+    <CircularProgress style={{ margin: '15% 0 0 0' }}/>
+    :
     <LoginForm />
-  </Grid>
-);
+  }
+</Grid>
+)};
 
 export default Login;

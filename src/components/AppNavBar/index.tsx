@@ -1,14 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from '@material-ui/core';
 
 import { RoutesNames } from '../../router/routesNames';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { useActions } from '../../hooks/useActions';
 import { AuthActionCreators } from '../../store/reducers/authentification/action-creators';
+import { AccountCircle } from '@material-ui/icons';
 
 const useStylesAppNavBar = makeStyles((theme) => ({
   root: {
@@ -22,27 +22,38 @@ const useStylesAppNavBar = makeStyles((theme) => ({
   },
   authName: {
     marginRight: '15px'
+  },
+  avatar: {
+    width: '40px',
+    height: '40px'
   }
 }));
 
 const AppNavBar:FC = () => {
   const classes = useStylesAppNavBar();
   const history = useNavigate();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { isAuth } = useTypedSelector(state => state.authentification)
   const { username } = useTypedSelector(state => state.user)
   const { logoutUser } = useActions(AuthActionCreators);
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    logoutUser();
+    setAnchorEl(null);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton 
-              edge="start" 
-              className={classes.menuButton} 
-              color="inherit" 
-              aria-label="menu">
-            <MenuIcon />
-          </IconButton>
           <Typography 
               variant="h6" 
               className={classes.title}
@@ -50,16 +61,27 @@ const AppNavBar:FC = () => {
               Calendar</Typography>
           {isAuth ? 
             <>
-              <Typography
-                className={classes.authName}
-                variant="h5"
+              <Typography className={classes.authName} variant="h6">{username}</Typography>
+              <IconButton
+                onClick={handleMenu}
+                color="inherit"
+                size='medium'
               >
-              {username}</Typography>
-              <Button 
-                variant="contained"
-                onClick={() => logoutUser()}
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                PaperProps={{
+                  style: { 
+                    transform: 'translateX(-30%) translateY(40%)'
+                  }
+                }}
               >
-                Sign Out</Button>
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
             </>
               :
             <Button 
