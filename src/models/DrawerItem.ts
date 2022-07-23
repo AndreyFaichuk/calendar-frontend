@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 export interface menuItem {
-    text: string;
-    icon: ReactNode;
-    path: string;
+  text: string;
+  icon: ReactNode;
+  path: string;
 }

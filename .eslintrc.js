@@ -1,30 +1,26 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es2021": true
+    extends: ["alloy", "alloy/react", "alloy/typescript"],
+    env: {
+      // Your environments (which contains several predefined global variables)
+      //
+      browser: true,
+      node: true,
+      mocha: true,
+      jest: true
+      // jquery: true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+    globals: {
+      // Your global variables (setting to false means it's not allowed to be reassigned)
+      //
+      // myGlobal: false
     },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
-    "rules": {
+    rules: {
+    
     },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
+    settings: {
+      react: {
+        pragma: "React",
+        version: "detect"
+      }
     }
-}
+  };

@@ -1,21 +1,20 @@
-import { ReactNode, FC } from 'react';
-import Box from '@mui/material/Box';
+import { ReactNode, FC } from "react";
+import Box from "@mui/material/Box";
 
-import CustomDrawer from '../CustomDrawer';
+import CustomDrawer from "../CustomDrawer";
 
-type Props = {
+interface Props {
   children: NonNullable<ReactNode>;
-};
+}
 
 const Layout: FC<Props> = ({ children }) => {
-
   return (
-		<Box sx={{ display: 'flex' }}>
-		<CustomDrawer/>
-		<Box component='main' sx={{ flexGrow: 1, p: 3 }}>
-			{children}
-		</Box>
-	</Box>
+    <Box sx={{ display: "flex" }}>
+      <CustomDrawer />
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        {children}
+      </Box>
+    </Box>
   );
 };
 

@@ -1,9 +1,9 @@
-import authentification from './authentification';
-import user from './user';
+import authentification from "./authentification";
+import user from "./user";
 
 const allReducers = {
-    authentification,
-    user
+  authentification,
+  user
 };
 
 export default allReducers;
