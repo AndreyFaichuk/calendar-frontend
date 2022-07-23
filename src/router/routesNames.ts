@@ -1,7 +1,8 @@
 export const enum RoutesNames {
-  LOGIN = "/login",
-  REGISTRATION = "/registration",
-  HOME = "/",
-  PROFILE = "/profile",
-  CALENDAR = "/calendar"
+	LOGIN = '/login',
+	REGISTRATION = '/registration',
+	HOME = '/',
+	PROFILE = '/profile/*',
+	CALENDAR = '/calendar',
+	TEST = '/profile/test'
 }
