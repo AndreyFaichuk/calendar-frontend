@@ -1,29 +1,22 @@
 import React, { FC } from 'react';
 import { Drawer, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import PersonIcon from '@mui/icons-material/Person';
+import { Divider } from '@material-ui/core';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-const drawerWidth = '220px';
+import { useActions } from '../../hooks/useActions';
+import { AuthActionCreators } from '../../store/reducers/authentification/action-creators';
+
+import menuItems from './MenuItems';
+import { menuItem } from '../../models/DrawerItem';
+
+const drawerWidth = '200px';
 
 const CustomDrawer: FC = () => {
+	const location = useLocation();
 	const navigate = useNavigate();
-
-	const menuItems = [
-		{
-			text: 'My calendar',
-			icon: <CalendarMonthIcon/>,
-			path: '/calendar'
-		},
-		{
-			text: 'Profile',
-			icon: <PersonIcon/>,
-			path: '/profile'
-		}
-	];
+	const { logoutUser } = useActions(AuthActionCreators);
 
   return (
 		<Drawer 
@@ -38,11 +31,12 @@ const CustomDrawer: FC = () => {
 		}>
 			<Box sx={{ overflow: 'hidden' }}>
 				<List>
-					{menuItems.map((item) => (
+					{menuItems.map((item: menuItem) => (
 						<ListItem 
 							key={item.path} 
 							disablePadding
 							onClick={() => navigate(item.path)}
+							selected={item.path === location.pathname}
 						>
 							<ListItemButton>
 								<ListItemIcon>
@@ -52,6 +46,18 @@ const CustomDrawer: FC = () => {
 							</ListItemButton>
 						</ListItem>
 					))}
+					<Divider/>
+					<ListItem 
+							disablePadding
+							onClick={() => logoutUser()}
+						>
+							<ListItemButton>
+								<ListItemIcon>
+									<LogoutIcon/>
+								</ListItemIcon>
+								<ListItemText primary='Logout' />
+							</ListItemButton>
+						</ListItem>
 				</List>
 			</Box>
 		</Drawer>
