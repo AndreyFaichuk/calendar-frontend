@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { AnyAction } from 'redux';
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
@@ -20,10 +21,10 @@ export function* loginSaga(action: AnyAction) {
 		if (data) {
 			yield put(AuthActionCreators.setIsAuth(true));
 			yield put(UserActionCreators.setUser(data));
-			toast.success(data.message);
+			toast.success('You successfully logged in!');
 		}
 	} catch (error) {
-		toast.error('Something went wrong!');
+		toast.error('User not found!');
 	}
 	yield put(AuthActionCreators.setIsLoading(false));
 }

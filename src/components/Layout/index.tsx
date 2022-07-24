@@ -12,7 +12,7 @@ const useStylesLayout = makeStyles((theme) => ({
 	},
 	rootPaper: {
 		marginTop: '15px',
-		padding: '10px'
+		padding: '20px'
 	},
 	breadcrumb: {
 		marginBottom: '10px'
@@ -30,7 +30,7 @@ const Layout: FC<Props> = ({ children }) => {
 			<CustomDrawer />
 			<Box component='main' className={classes.rootWraper}>
 				<Breadcrumb />
-				<Paper className={classes.rootPaper}>{children}</Paper>
+				<Paper elevation={3} className={classes.rootPaper}>{children}</Paper>
 			</Box>
 		</Box>
 	);

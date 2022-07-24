@@ -27,7 +27,7 @@ const Input: FC<Props> = ({
   <TextField
     value={value}
     type={type}
-    style={{ width: width }}
+    style={{ width }}
     label={label}
     helperText={helperText}
     error={error}
