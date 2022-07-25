@@ -55,7 +55,7 @@ export function* verifySessionSaga() {
 		if (data) {
 			yield put(AuthActionCreators.setIsAuth(true));
 			yield put(UserActionCreators.setUser(data));
-			toast.success(data.message);
+			toast.success('Successfully logged in!');
 		}
 	} catch (error) {
 		toast.error('Login please!');
@@ -69,6 +69,7 @@ export function* logoutSaga() {
 	const result: UserData = yield call(logoutUser);
 	toast.success(result.data.message);
 	cookies.remove('connect.sid');
+	window.location.reload();
 
 	yield put(AuthActionCreators.setIsLoading(false));
 	yield put(UserActionCreators.setUser({ username: '', email: '', userId: '' }));

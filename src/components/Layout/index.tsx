@@ -3,7 +3,8 @@ import Box from '@mui/material/Box';
 
 import CustomDrawer from '../CustomDrawer';
 import Breadcrumb from '../Breadcrumb';
-import { makeStyles, Paper } from '@material-ui/core';
+import { CircularProgress, makeStyles, Paper } from '@material-ui/core';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 const useStylesLayout = makeStyles((theme) => ({
 	rootWraper: {
@@ -24,13 +25,17 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children }) => {
+	const { isLoading } = useTypedSelector((state) => state.authentification);
+
 	const classes = useStylesLayout();
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CustomDrawer />
 			<Box component='main' className={classes.rootWraper}>
 				<Breadcrumb />
-				<Paper elevation={3} className={classes.rootPaper}>{children}</Paper>
+				<Paper elevation={3} className={classes.rootPaper}>
+					{isLoading ? <CircularProgress style={{ margin: "15% 0 0 0" }} /> : <>{children}</>}
+				</Paper>
 			</Box>
 		</Box>
 	);
