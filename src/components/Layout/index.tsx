@@ -33,7 +33,7 @@ const Layout: FC<Props> = ({ children }) => {
 			<CustomDrawer />
 			<Box component='main' className={classes.rootWraper}>
 				<Breadcrumb />
-				<Paper elevation={3} className={classes.rootPaper}>
+				<Paper elevation={5} className={classes.rootPaper}>
 					{isLoading ? <CircularProgress style={{ margin: "15% 0 0 0" }} /> : <>{children}</>}
 				</Paper>
 			</Box>

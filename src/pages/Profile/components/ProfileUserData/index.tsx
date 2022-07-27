@@ -1,6 +1,7 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react';
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Grid, Slider, Button } from '@material-ui/core';
+import { ChangeEvent, FC, FormEvent, useCallback, useState } from 'react';
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Grid, Slider, Button, Paper, makeStyles, Avatar, IconButton, Typography } from '@material-ui/core';
 import { toast } from 'react-toastify';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import Input from '../../../../controls/Input';
 import { UserState } from '../../../../store/reducers/user/types';
@@ -9,10 +10,65 @@ import { useActions } from '../../../../hooks/useActions';
 import { UserActionCreators } from '../../../../store/reducers/user/action-creators';
 import areObjectsEquality from '../../../../helpers/areObjectsEquality';
 
+const useStylesAppNavBar = makeStyles((theme) => ({
+	avatarPreview: {
+		boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+		marginBottom: '15px',
+		margin: '0 auto',
+		width: '90px',
+		height: '90px',
+		backgroundColor: 'orange'
+	},
+	deleteButtonAvatar: {
+		position: 'absolute',
+		top: '0',
+		right: '0',
+		padding: '0'
+	}
+}));
+
 const ProfileUserData: FC = () => {
 	const user = useTypedSelector((state) => state.user);
+	const { username } = useTypedSelector((state) => state.user);
 	const [formValues, setFormValues] = useState(user as UserState);
+	const classes = useStylesAppNavBar();
 	const { updateUser } = useActions(UserActionCreators);
+
+	const handleCreateBase64 = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
+		const target = e.target as HTMLInputElement;
+		const file: File = (target.files as FileList)[0];
+		const base64 = await convertToBase64(file);
+		setFormValues({
+			...formValues,
+			avatar: (base64 as string)
+		})
+		e.target.value = '';
+	}, []);
+
+	console.log(formValues)
+
+	const convertToBase64 = (file: any) => {
+		return new Promise((res, rej) => {
+			const fileReader = new FileReader();
+			if (!file) {
+				toast.error('Please select an image!')
+			} else {
+				fileReader.readAsDataURL(file);
+				fileReader.onload = () => res(fileReader.result)
+			};
+			fileReader.onerror = (error) => {
+				rej(error)
+			};
+		})
+	};
+
+	const deleteImage = (e: ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault();
+		setFormValues({
+			...formValues,
+			avatar: ''
+		})
+	};
 
 	const handleInputChange = (e: FormEvent<EventTarget>) => {
 		const { name, value } = e.target as HTMLInputElement;
@@ -104,11 +160,38 @@ const ProfileUserData: FC = () => {
 				</FormControl>
 			</Grid>
 			<Grid item>
-				<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-					<Button variant="contained" color='inherit'>
+				<div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
+					{formValues.avatar ?
+						<Avatar
+							className={classes.avatarPreview}
+							alt={`${username}'s avatar`}
+							src={formValues.avatar}
+						/>
+						:
+						<Avatar
+							className={classes.avatarPreview}>
+							<Typography variant='h3'>
+								{username[0]}
+							</Typography>
+						</Avatar>
+					}
+					<Button variant='contained' component='label'>
 						Upload avatar
-						<input hidden accept="image/*" multiple type="file" />
+						<input
+							hidden
+							accept='image/*'
+							multiple type='file'
+							onChange={(e: ChangeEvent<HTMLInputElement>) => handleCreateBase64(e)}
+						/>
 					</Button>
+					{formValues.avatar &&
+						<IconButton
+							className={classes.deleteButtonAvatar}
+							onClick={(e: any) => deleteImage(e)}
+						>
+							<DeleteIcon />
+						</IconButton>
+					}
 				</div>
 			</Grid>
 			<Grid item>
@@ -116,12 +199,12 @@ const ProfileUserData: FC = () => {
 					variant='contained'
 					color='primary'
 					onClick={handleSubmit}
-					style={{ marginTop: '15px' }}
+					style={{ margin: '15px 0 0 0' }}
 				>
 					Save changes
 				</Button>
 			</Grid>
-		</Grid>
+		</Grid >
 	);
 };
 

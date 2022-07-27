@@ -21,8 +21,9 @@ const useStylesAppNavBar = makeStyles((theme) => ({
 		marginRight: '15px'
 	},
 	avatar: {
-		width: '40px',
-		height: '40px'
+		width: '50px',
+		height: '50px',
+		backgroundColor: 'orange'
 	}
 }));
 
@@ -45,11 +46,11 @@ const AppNavBar: FC = () => {
 								{username}
 							</Typography>
 							<Avatar
-								style={{
-									backgroundColor: 'orange'
-								}}
+								className={classes.avatar}
 							>
-								{username[0]}
+								<Typography variant='h5'>
+									{username[0]}
+								</Typography>
 							</Avatar>
 						</>
 					) : (
