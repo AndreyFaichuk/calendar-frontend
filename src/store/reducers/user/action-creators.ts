@@ -1,6 +1,6 @@
 import { UserData } from "../../../models/User";
 import { UserActions } from "./actions";
-import { SetUpdatedInfoAction, SetUserInfoAction, UserState } from "./types";
+import { SetUpdatedInfoAction, SetUserInfoAction, UserState, PostAvatarAction } from "./types";
 
 export const UserActionCreators = {
   setUser: (user: UserData): SetUserInfoAction => ({
@@ -10,5 +10,9 @@ export const UserActionCreators = {
   updateUser: (user: UserState): SetUpdatedInfoAction => ({
     type: UserActions.UPDATE_USER,
     payload: user
+  }),
+  postUserAvatar: (avatar: File): PostAvatarAction => ({
+    type: UserActions.POST_USER_AVATAR,
+    payload: avatar
   })
 };

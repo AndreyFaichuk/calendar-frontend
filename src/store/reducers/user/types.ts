@@ -21,4 +21,9 @@ export interface SetUpdatedInfoAction {
   payload: UserState;
 }
 
-export type UserAction = SetUserInfoAction;
+export interface PostAvatarAction {
+  type: UserActions.POST_USER_AVATAR;
+  payload: File;
+}
+
+export type UserAction = SetUserInfoAction | SetUpdatedInfoAction | PostAvatarAction;
