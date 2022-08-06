@@ -1,16 +1,25 @@
-import { Dayjs } from 'dayjs';
-import React, { FC, useState } from 'react';
+import dayjs from 'dayjs';
+import React, { FC, useEffect } from 'react';
 
-import getMonth from '../../helpers/getMonth';
 import CalendarHeader from './components/CalendarHeader';
 import CalendarMonth from './components/CalendarMonth';
 import CalendarSideBar from './components/CalendarSideBar';
 
 import '../../index.css';
-import { Box, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+import { useActions } from '../../hooks/useActions';
+import { CalendarActionCreators } from '../../store/reducers/calendar/action-creators';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 const Calendar: FC = () => {
-  const [currentMonth, setCurrentMonth] = useState<Dayjs[][]>(getMonth());
+  const { currentMonth } = useTypedSelector((state) => state.calendar);
+  const { setCurentMonth } = useActions(CalendarActionCreators);
+
+  useEffect(() => {
+    if (!currentMonth.length) {
+      setCurentMonth()
+    }
+  }, []);
 
   return (
     <React.Fragment>
