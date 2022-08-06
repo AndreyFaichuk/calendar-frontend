@@ -32,7 +32,7 @@ export const postUserAvatar = async (
   const formData = new FormData();
   formData.append("file", avatar);
   return await axios({
-    method: "post",
+    method: "patch",
     url: 'http://localhost:5000/users/avatar/',
     data: formData,
     headers: {

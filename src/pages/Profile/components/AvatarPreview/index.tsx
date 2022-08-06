@@ -26,6 +26,7 @@ const useStylesAppNavBar = makeStyles((theme) => ({
 
 const AvatarPreview: FC = () => {
   const { username, avatar } = useTypedSelector((state) => state.user);
+  const { isLoading } = useTypedSelector((state) => state.authentification);
   const [avatarPreview, setAvatarPreview] = useState<string>('');
   const { updateUser, postUserAvatar } = useActions(UserActionCreators);
   const classes = useStylesAppNavBar();
@@ -55,11 +56,19 @@ const AvatarPreview: FC = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', position: 'relative' }}>
       {avatarPreview ?
-        <Avatar
-          className={classes.avatarPreview}
-          alt={`${username}'s avatar`}
-          src={avatarPreview}
-        />
+        <>
+          <Avatar
+            className={classes.avatarPreview}
+            alt={`${username}'s avatar`}
+            src={avatarPreview}
+          />
+          <IconButton
+            className={classes.deleteButtonAvatar}
+            onClick={(e: any) => deleteImage(e)}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </>
         :
         <>
           <Avatar
@@ -68,7 +77,7 @@ const AvatarPreview: FC = () => {
               {username[0]}
             </Typography>
           </Avatar>
-          <Button variant='contained' component="label">
+          <Button variant='contained' component='label'>
             Upload avatar
             <input
               hidden
@@ -79,14 +88,6 @@ const AvatarPreview: FC = () => {
             />
           </Button>
         </>
-      }
-      {avatarPreview &&
-        <IconButton
-          className={classes.deleteButtonAvatar}
-          onClick={(e: any) => deleteImage(e)}
-        >
-          <DeleteIcon />
-        </IconButton>
       }
     </div>
   );
