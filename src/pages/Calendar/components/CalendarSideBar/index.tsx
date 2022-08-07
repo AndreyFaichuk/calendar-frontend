@@ -1,8 +1,9 @@
 import React, { FC } from 'react'
+import SmallCalendar from './SmallCalendar';
 
 const CalendarSideBar: FC = () => {
   return (
-    <div>CalendarSideBar</div>
+    <SmallCalendar />
   )
 }
 

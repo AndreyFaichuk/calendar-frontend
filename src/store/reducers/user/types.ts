@@ -1,5 +1,5 @@
-import { UserData } from "../../../models/User";
-import { UserActions } from "./actions";
+import { UserData } from '../../../models/User';
+import { UserActions } from './actions';
 
 export interface UserState {
   email?: string;

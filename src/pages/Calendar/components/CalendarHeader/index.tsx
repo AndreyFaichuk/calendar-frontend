@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import dayjs from 'dayjs';
@@ -9,8 +9,10 @@ import { CalendarActionCreators } from '../../../../store/reducers/calendar/acti
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 
 const CalendarHeader: FC = () => {
-  const { currentMonth, monthIndex } = useTypedSelector((state) => state.calendar);
+  const { monthIndex } = useTypedSelector((state) => state.calendar);
   const { setCurentMonth } = useActions(CalendarActionCreators);
+
+  const headerMonthTitle = () => dayjs(new Date(dayjs().year(), monthIndex)).format('MMMM YYYY');
 
   const handleDecMonthIndex = () => {
     setCurentMonth(monthIndex - 1)
@@ -25,9 +27,7 @@ const CalendarHeader: FC = () => {
   };
 
   return (
-    <Grid container
-      justifyContent='space-between'
-    >
+    <Grid container>
       <Grid item>
         <Button
           variant='contained'
@@ -46,10 +46,17 @@ const CalendarHeader: FC = () => {
         <Button
           size='small'
           onClick={handleIncMonthIndex}
+          style={{ marginRight: '5px' }}
         >
           <ArrowForwardIosIcon />
         </Button>
       </Grid>
+      <Typography
+        variant='h6'
+        style={{ color: 'grey', fontWeight: 'bold' }}
+      >
+        {headerMonthTitle()}
+      </Typography>
     </Grid>
   )
 }

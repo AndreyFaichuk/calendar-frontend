@@ -27,14 +27,25 @@ const Calendar: FC = () => {
         justifyContent='space-between'
         direction='column'
       >
-        {/* <Grid item xs={1}>
-          <CalendarSideBar />
-        </Grid> */}
-        <Grid item xs={12} style={{ marginBottom: '15px' }}>
-          <CalendarHeader />
-        </Grid>
-        <Grid item xs={12}>
-          <CalendarMonth month={currentMonth} />
+        <Grid container>
+          <Grid
+            item
+            xs={2}
+          >
+            <CalendarSideBar />
+          </Grid>
+          <Grid
+            item
+            xs={10}>
+            <Grid
+              item
+              xs={12}
+              style={{ marginBottom: '15px' }}
+            >
+              <CalendarHeader />
+            </Grid>
+            <CalendarMonth month={currentMonth} />
+          </Grid>
         </Grid>
       </Grid>
     </React.Fragment>
