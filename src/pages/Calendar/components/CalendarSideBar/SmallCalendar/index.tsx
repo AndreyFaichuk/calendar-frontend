@@ -1,13 +1,14 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import { Box, Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
-import { useActions } from '../../../../../hooks/useActions';
 import { useTypedSelector } from '../../../../../hooks/useTypedSelector';
-import { CalendarActionCreators } from '../../../../../store/reducers/calendar/action-creators';
 import getMonth from '../../../../../helpers/getMonth';
+import headerMonthTitle from '../../../../../helpers/headerMonthTitle';
+import { CalendarActionCreators } from '../../../../../store/reducers/calendar/action-creators';
+import { useActions } from '../../../../../hooks/useActions';
 
 const useStyles = makeStyles(theme => ({
   smallCalendarRoot: {
@@ -16,36 +17,54 @@ const useStyles = makeStyles(theme => ({
   smallCalendarHeader: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: '15px',
+    margin: '15px 0 10px 0',
   },
   smallCalendarTitle: {
     color: 'grey',
+    margin: '0 10px'
+  },
+  smallCalendarWeek: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'grey',
+  },
+  smallCalendarDay: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '20px',
+    cursor: 'pointer',
+    "&:hover": {
+      backgroundColor: '#F5F5F5'
+    },
   }
 }));
 
 const SmallCalendar: FC = () => {
-  const { monthIndex, currentMonth } = useTypedSelector((state) => state.calendar);
+  const { monthIndex, currentMonth, smallMonthIndex } = useTypedSelector((state) => state.calendar);
   const [localMonth, setLocalMonth] = useState<Dayjs[][]>(currentMonth);
-  const [localMonthIndex, setLocalMonthIndex] = useState<number>(monthIndex);
-  const { setCurentMonth } = useActions(CalendarActionCreators);
+  const [localMonthIndex, setLocalMonthIndex] = useState<number>(smallMonthIndex);
+  const { SetSmallMonthIndex } = useActions(CalendarActionCreators);
   const classes = useStyles();
 
-  console.log(localMonth);
+  useEffect(() => {
+    setLocalMonth(getMonth(smallMonthIndex))
+    setLocalMonthIndex(smallMonthIndex)
+  }, [smallMonthIndex]);
 
   useEffect(() => {
-    setLocalMonth(currentMonth);
+    setLocalMonth(currentMonth)
     setLocalMonthIndex(monthIndex)
   }, [monthIndex]);
 
-  const headerMonthTitle = () => dayjs(new Date(dayjs().year(), localMonthIndex)).format('MMMM YYYY');
-
   const handleDecMonthIndex = () => {
-    setLocalMonthIndex(prevState => prevState - 1)
+    SetSmallMonthIndex(smallMonthIndex - 1)
     setLocalMonth(getMonth(localMonthIndex))
   };
 
   const handleIncMonthIndex = () => {
-    setLocalMonthIndex(prevState => prevState + 1)
+    SetSmallMonthIndex(smallMonthIndex + 1)
     setLocalMonth(getMonth(localMonthIndex))
   };
 
@@ -69,7 +88,7 @@ const SmallCalendar: FC = () => {
           variant='subtitle1'
           className={classes.smallCalendarTitle}
         >
-          {headerMonthTitle()}
+          {headerMonthTitle(localMonthIndex)}
         </Typography>
         <Button
           size='small'
@@ -77,9 +96,30 @@ const SmallCalendar: FC = () => {
         >
           <ArrowRightIcon />
         </Button>
-
       </Grid>
-    </Grid >
+      <Grid item xs={11}>
+        <div className='grid grid-cols-7 grid-rows-6'>
+          {localMonth[0]?.map((day, index) =>
+            <div key={index} className={classes.smallCalendarWeek}>
+              <Typography variant='overline'>
+                {day.format('dd').charAt(0)}
+              </Typography>
+            </div>
+          )}
+          {localMonth.map((row, index) =>
+            <React.Fragment key={index}>
+              {row.map((day, i) =>
+                <div key={i} className={classes.smallCalendarDay}>
+                  <Typography variant='caption'>
+                    {day.format('D')}
+                  </Typography>
+                </div>
+              )}
+            </React.Fragment>
+          )}
+        </div>
+      </Grid>
+    </Grid>
   )
 }
 

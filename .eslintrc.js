@@ -1,35 +1,26 @@
 // module.exports = {
-//     extends: ["alloy", "alloy/react", "alloy/typescript", 'react-app','prettier', 'plugin:prettier/recommended',],
 //     env: {
-//       // Your environments (which contains several predefined global variables)
-//       //
-//       browser: true,
+//       commonjs: true,
 //       node: true,
-//       mocha: true,
-//       jest: true
-//       // jquery: true
+//       browser: true,
+//       es6: true,
+//       jest: true,
 //     },
-//     globals: {
-//       // Your global variables (setting to false means it's not allowed to be reassigned)
-//       //
-//       // myGlobal: false
+//     extends: ["eslint:recommended", "plugin:react/recommended"],
+//     globals: {},
+//     parserOptions: {
+//       ecmaFeatures: {
+//         jsx: true,
+//       },
+//       ecmaVersion: 2018,
+//       sourceType: "module",
 //     },
-//     rules: {
-//       'react/jsx-first-prop-new-line': [2, 'multiline'],
-//       'react/jsx-max-props-per-line': [
-//         2,
-//         { maximum: 1, when: 'multiline' },
-//       ],
-//       'react/jsx-indent-props': [2, 2],
-//       'react/jsx-closing-bracket-location': [
-//         2,
-//         'tag-aligned',
-//       ],
-//     },
+//     plugins: ["react", "import", "react-hooks", "@typescript-eslint"],
+//     ignorePatterns: ["node_modules/"],
+//     rules: {},
 //     settings: {
 //       react: {
-//         pragma: "React",
-//         version: "detect"
-//       }
-//     }
+//         version: "latest", // "detect" automatically picks the version you have installed.
+//       },
+//     },
 //   };

@@ -3,7 +3,8 @@ import { CalendarAction, CalendarState } from './types';
 
 const initialState: CalendarState = {
   currentMonth: [],
-  monthIndex: 0
+  monthIndex: 0,
+  smallMonthIndex: 0
 };
 
 export default function calendar(state = initialState, action: CalendarAction): CalendarState {
@@ -14,7 +15,10 @@ export default function calendar(state = initialState, action: CalendarAction): 
     case CalendarActions.SET_CALENDAR_MONTH_INDEX:
       return {...state, monthIndex: action.payload};
 
+    case CalendarActions.SET_SMALL_CALENDAR_MONTH_INDEX:
+      return {...state, smallMonthIndex: action.payload};
+
     default:
       return state;
   }
-}
+};

@@ -4,6 +4,7 @@ import { CalendarActions } from './actions';
 export interface CalendarState {
   currentMonth: Dayjs[][];
   monthIndex: number;
+  smallMonthIndex: number;
 };
 
 export interface SetCalendarCurrentMonth {
@@ -16,4 +17,9 @@ export interface SetCalendarCurrentMonthIndex {
   payload: number;
 };
 
-export type CalendarAction = SetCalendarCurrentMonth | SetCalendarCurrentMonthIndex;
+export interface SetCalendarSmallMonthIndex {
+  type: CalendarActions.SET_SMALL_CALENDAR_MONTH_INDEX;
+  payload: number;
+};
+
+export type CalendarAction = SetCalendarCurrentMonth | SetCalendarCurrentMonthIndex | SetCalendarSmallMonthIndex;

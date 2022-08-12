@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -7,12 +7,11 @@ import dayjs from 'dayjs';
 import { useActions } from '../../../../hooks/useActions';
 import { CalendarActionCreators } from '../../../../store/reducers/calendar/action-creators';
 import { useTypedSelector } from '../../../../hooks/useTypedSelector';
+import headerMonthTitle from '../../../../helpers/headerMonthTitle';
 
 const CalendarHeader: FC = () => {
   const { monthIndex } = useTypedSelector((state) => state.calendar);
   const { setCurentMonth } = useActions(CalendarActionCreators);
-
-  const headerMonthTitle = () => dayjs(new Date(dayjs().year(), monthIndex)).format('MMMM YYYY');
 
   const handleDecMonthIndex = () => {
     setCurentMonth(monthIndex - 1)
@@ -55,7 +54,7 @@ const CalendarHeader: FC = () => {
         variant='h6'
         style={{ color: 'grey', fontWeight: 'bold' }}
       >
-        {headerMonthTitle()}
+        {headerMonthTitle(monthIndex)}
       </Typography>
     </Grid>
   )
